@@ -1,17 +1,12 @@
 
 import React from 'react'
-
-import audio from "../vocals.wav"
-import audio2 from "../other.wav"
-import audio3 from "../bass.wav"
-import audio4 from "../drums.wav"
 import { Icon } from 'react-icons-kit'
 import {ic_play_circle_filled} from 'react-icons-kit/md/ic_play_circle_filled'
 import {ic_pause_circle_filled} from 'react-icons-kit/md/ic_pause_circle_filled'
 import {volume_2} from 'react-icons-kit/ikons/volume_2'
 import {volume_off} from 'react-icons-kit/ikons/volume_off'
 import {cloudDownload} from 'react-icons-kit/icomoon/cloudDownload'
-import WaveSurfer from 'wavesurfer.js';
+import WaveSurfer from 'wavesurfer.js'
 import guitar from '../guitarsvg.svg'
 import drums from '../drumssvg.svg'
 import bass from '../basssvg.svg'
@@ -88,19 +83,19 @@ class Output extends React.Component{
                    audiosLoaded:true
                });
                }.bind(this),
-           8000,
+           0,
        );
         this.wavesurferArray[0] = WaveSurfer.create(waveOptions);
-        this.wavesurferArray[0].load(audio)
+        this.wavesurferArray[0].load(process.env.REACT_APP_API_URL+'/static/vocals'+localStorage.getItem('submissionId')+'.wav')
         waveOptions.container='#waveform1'
         this.wavesurferArray[1] = WaveSurfer.create(waveOptions);
-        this.wavesurferArray[1].load(audio2)
+        this.wavesurferArray[1].load(process.env.REACT_APP_API_URL+'/static/drums'+localStorage.getItem('submissionId')+'.wav')
         waveOptions.container='#waveform2'
         this.wavesurferArray[2] = WaveSurfer.create(waveOptions);
-        this.wavesurferArray[2].load(audio3)
+        this.wavesurferArray[2].load(process.env.REACT_APP_API_URL+'/static/bass'+localStorage.getItem('submissionId')+'.wav')
         waveOptions.container='#waveform3'
         this.wavesurferArray[3] = WaveSurfer.create(waveOptions);
-        this.wavesurferArray[3].load(audio4)
+        this.wavesurferArray[3].load(process.env.REACT_APP_API_URL+'/static/other'+localStorage.getItem('submissionId')+'.wav')
         //this function handles key click
         document.body.addEventListener('keydown',function(event){
             event.preventDefault()
@@ -250,7 +245,7 @@ class Output extends React.Component{
                                 :<Icon className="icon pause-icon" icon={ic_pause_circle_filled} size="100" onClick={()=>this.play_pause()}/>}
                             </h2>
                             <div className="text">
-                            <h2>A classic education - NightOwl</h2>
+                            <h2>{localStorage.getItem('songName')}</h2>
                             <h4 id="playing" className={ this.state.status==0 ? "playing" : ""}>Click to play</h4>
                             <h4 id="playing" className={ this.state.status==1 ? "playing" : ""}>playing</h4>
                             <h4 id="paused" className={ this.state.status==2 ? "paused" : ""}>Paused</h4>
@@ -284,9 +279,13 @@ class Output extends React.Component{
                             </div>
                             
                             <img className="output_inst" src={vocal} />
-                            <Icon icon={cloudDownload} className="download_stem" size="50"></Icon>
+                            
+                            <a href={process.env.REACT_APP_API_URL+'/static/vocals'+localStorage.getItem('submissionId')+'.wav' } 
+                            download={localStorage.getItem('songName')+'-vocals'} target="_black"><Icon icon={cloudDownload} className="download_stem" size="50"></Icon>
+                            </a>
                         </div>
                         <div className="instrument_player">
+                            
                             <div  
                                 onMouseEnter={() => this.volumeHandler(true,"volume1")}
                                 onMouseLeave={() => this.volumeHandler(false,"volume1")} 
@@ -302,8 +301,10 @@ class Output extends React.Component{
                                 <div id="waveform1" className="waveform" onClick={(e)=>this.updateCursor(e)}>
                                 </div>
                             </div>
-                            <img className="output_inst" src={guitar} />
-                            <Icon icon={cloudDownload} className="download_stem" size="50"></Icon>
+                            <img className="output_inst" src={drums} />
+                            <a href={process.env.REACT_APP_API_URL+'/static/drums'+localStorage.getItem('submissionId')+'.wav' } 
+                            download={localStorage.getItem('songName')+'-drums'} target="_black"><Icon icon={cloudDownload} className="download_stem" size="50"></Icon>
+                            </a>
                         </div>
                         <div className="instrument_player">
                             <div  
@@ -323,7 +324,9 @@ class Output extends React.Component{
                             </div>
                             
                             <img className="output_inst" src={bass} />
-                            <Icon icon={cloudDownload} className="download_stem" size="50"></Icon>
+                            <a href={process.env.REACT_APP_API_URL+'/static/bass'+localStorage.getItem('submissionId')+'.wav' } 
+                            download={localStorage.getItem('songName')+'-bass'} target="_black"><Icon icon={cloudDownload} className="download_stem" size="50"></Icon>
+                            </a>
                         </div>
                         <div className="instrument_player">
                             <div  
@@ -341,8 +344,10 @@ class Output extends React.Component{
                                 <div id="waveform3" className="waveform" onClick={(e)=>this.updateCursor(e)}>
                                 </div>
                             </div>
-                            <img className="output_inst" src={drums} />
-                            <Icon icon={cloudDownload} className="download_stem" size="50"></Icon>
+                            <img className="output_inst" src={guitar} />
+                            <a href={process.env.REACT_APP_API_URL+'/static/other'+localStorage.getItem('submissionId')+'.wav' } 
+                            download={localStorage.getItem('songName')+'-other'} target="_black"><Icon icon={cloudDownload} className="download_stem" size="50"></Icon>
+                            </a>
                         </div>
                     </div>  
                     <Footer 

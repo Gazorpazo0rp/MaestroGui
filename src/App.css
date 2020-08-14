@@ -692,9 +692,11 @@ a> .logo{
   filter: invert(44%) sepia(10%) saturate(1699%) hue-rotate(220deg) brightness(92%) contrast(95%);
   transition: all .4s ease;
 }
-  
+.instrument_player a{
+  color: rgb(86, 68, 117);;
+}
 .download_stem {
-  filter: invert(44%) sepia(10%) saturate(1699%) hue-rotate(220deg) brightness(92%) contrast(95%);
+  /* filter: invert(44%) sepia(10%) saturate(1699%) hue-rotate(220deg) brightness(92%) contrast(95%); */
   cursor: pointer;
   position:absolute;
   right:0px;
